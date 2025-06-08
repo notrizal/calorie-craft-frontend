@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Healthily - Find Your Foods</title>
+        <!-- Menggunakan CDN Tailwind CSS untuk kemudahan -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            /* Menambahkan font kustom jika diinginkan, atau menggunakan default Tailwind */
+            @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+            body {
+                font-family: "Inter", sans-serif;
+            }
+            /* Styling tambahan untuk select-box agar mirip desain */
+            .custom-select {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+                background-position: right 0.75rem center;
+                background-repeat: no-repeat;
+                background-size: 1.5em 1.5em;
+                padding-right: 2.5rem;
+            }
+        </style>
+    </head>
+    <!-- [PERUBAHAN 1] Mengubah body menjadi flex container vertikal dengan tinggi minimal seukuran layar -->
+    <body class="bg-white text-gray-800 flex flex-col min-h-screen">
+        <!-- HEADER (Tidak ada perubahan, header akan mengambil tinggi yang dibutuhkan) -->
+        <header class="border-b border-gray-200 bg-white sticky top-0 z-30">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Struktur utama diubah menjadi 2 kolom dengan justify-between -->
+                <div class="flex h-16 items-center justify-between">
+                    <!-- Grup Kiri: Logo, Pembatas, dan Navigasi -->
+                    <div class="flex items-center gap-6">
+                        <!-- Logo & Tombol Hamburger -->
+                        <div class="flex items-center gap-4">
+                            <!-- Tombol Hamburger (Hanya Tampil di Mobile) -->
+                            <button
+                                id="hamburger-button"
+                                class="md:hidden p-2 -ml-2 rounded-md focus:outline-none"
+                                aria-label="Open main menu"
+                                aria-expanded="false"
+                            >
+                                <span class="sr-only">Open main menu</span>
+                                <div class="space-y-1.5">
+                                    <span
+                                        class="block w-6 h-0.5 bg-gray-700"
+                                    ></span>
+                                    <span
+                                        class="block w-6 h-0.5 bg-gray-700"
+                                    ></span>
+                                    <span
+                                        class="block w-6 h-0.5 bg-gray-700"
+                                    ></span>
+                                </div>
+                            </button>
+                            <!-- Logo -->
+                            <a
+                                href="./index.html"
+                                class="text-xl font-bold text-gray-800"
+                            >
+                                CalorieCraft
+                            </a>
+                        </div>
+
+                        <!-- Pembatas Vertikal (Hanya Tampil di Desktop) -->
+                        <div
+                            class="hidden md:block h-6 w-px bg-gray-200"
+                            aria-hidden="true"
+                        ></div>
+
+                        <!-- Navigasi (Sekarang menjadi bagian dari grup kiri) -->
+                        <nav
+                            class="hidden md:flex gap-6 text-sm font-medium text-gray-600"
+                        >
+                            <a href="./index.html" class="hover:text-gray-900"
+                                >Home</a
+                            >
+                            <a href="./recipes.html" class="hover:text-gray-900"
+                                >Recipes</a
+                            >
+                            <a href="#" class="hover:text-gray-900">Explore</a>
+                            <a href="./about.html" class="hover:text-gray-900"
+                                >About Us</a
+                            >
+                            <a href="#" class="hover:text-gray-900"
+                                >Healthy Eating</a
+                            >
+                        </nav>
+                    </div>
+
+                    <!-- Grup Kanan: Actions (Tidak Berubah) -->
+                    <div class="flex items-center gap-4">
+                        <!-- Tombol Notifikasi -->
+                        <button class="p-2 rounded-full hover:bg-gray-100">
+                            <span class="sr-only">View notifications</span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-6 h-6 text-gray-600"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                                />
+                            </svg>
+                        </button>
+                        <!-- Avatar Pengguna -->
+                        <button
+                            class="w-8 h-8 rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                        >
+                            <span class="sr-only">Open user menu</span>
+                            <img
+                                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1780&q=80"
+                                alt="User avatar"
+                                class="w-full h-full object-cover"
+                            />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- SIDEBAR (Tidak ada perubahan) -->
+        <div id="mobile-menu-container" class="fixed inset-0 z-40 hidden">
+            <!-- Overlay -->
+            <div
+                id="mobile-menu-overlay"
+                class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 ease-in-out"
+            ></div>
+
+            <!-- Panel Sidebar -->
+            <div
+                id="mobile-menu"
+                class="relative z-50 w-4/5 max-w-xs h-full bg-white shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out"
+            >
+                <div class="flex flex-col h-full">
+                    <!-- Header Sidebar -->
+                    <div
+                        class="flex items-center justify-between p-4 border-b border-gray-200"
+                    >
+                        <h2 class="text-lg font-bold">Menu</h2>
+                        <button
+                            id="close-menu-button"
+                            class="p-2 -mr-2 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                            aria-label="Close menu"
+                        >
+                            <svg
+                                class="w-6 h-6"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Navigasi di dalam Sidebar -->
+                    <nav class="flex-grow p-4">
+                        <ul class="flex flex-col gap-4 text-gray-700">
+                            <li>
+                                <a
+                                    href="./index.html"
+                                    class="block py-2 px-3 rounded-md hover:bg-gray-100 hover:text-gray-900 font-medium"
+                                    >Home</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="./recipes.html"
+                                    class="block py-2 px-3 rounded-md hover:bg-gray-100 hover:text-gray-900 font-medium"
+                                    >Recipes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="./explore.html"
+                                    class="block py-2 px-3 rounded-md hover:bg-gray-100 hover:text-gray-900 font-medium"
+                                    >Explore</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="block py-2 px-3 rounded-md hover:bg-gray-100 hover:text-gray-900 font-medium"
+                                    >Cooking</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="block py-2 px-3 rounded-md hover:bg-gray-100 hover:text-gray-900 font-medium"
+                                    >Healthy Eating</a
+                                >
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- [PERUBAHAN 2] Menghapus style inline dan menggantinya dengan `flex-grow` untuk mengisi sisa ruang -->
+        <div class="flex-grow flex items-center justify-center">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
+                <!-- MAIN CONTENT -->
+                <main class="py-12 h-full">
+                    <!-- [PERUBAHAN 3] Menambahkan `h-full` dan mengubah `items-center` menjadi `items-stretch` agar kolom meregang -->
+                    <div
+                        class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch h-full"
+                    >
+                        <!-- [PERUBAHAN 4] Menyederhanakan markup gambar agar mengisi kolom dengan sempurna -->
+                        <div class="hidden lg:block relative">
+                            <img
+                                src="../assets/images/healthy-food1.jpg"
+                                alt="Illustration of a healthy meal"
+                                class="absolute inset-0 w-full h-full object-cover rounded-3xl"
+                            />
+                        </div>
+                        <!-- Left Side: Form -->
+                        <div class="flex flex-col justify-center lg:text-left">
+                            <h1
+                                class="text-4xl md:text-5xl font-extrabold tracking-tight"
+                            >
+                                Start your healthy journey today!
+                            </h1>
+                            <p class="mt-4 text-lg text-gray-600">
+                                Enter your information to get started.
+                            </p>
+
+                            <form class="mt-10 space-y-6">
+                                <div>
+                                    <label
+                                        for="name"
+                                        class="block text-sm font-medium text-gray-700 mb-2 text-left"
+                                        >Full Name</label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        class="block w-full px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-sm focus:ring-green-500 focus:border-green-500 outline-none"
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        for="email"
+                                        class="block text-sm font-medium text-gray-700 mb-2 text-left"
+                                        >Email</label
+                                    >
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        class="block w-full px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-sm focus:ring-green-500 focus:border-green-500 outline-none"
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        for="password"
+                                        class="block text-sm font-medium text-gray-700 mb-2 text-left"
+                                        >Password</label
+                                    >
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        class="block w-full px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-sm focus:ring-green-500 focus:border-green-500 outline-none"
+                                    />
+                                </div>
+
+                                <div
+                                    class="flex flex-col items-center gap-2 pt-4"
+                                >
+                                    <button
+                                        type="submit"
+                                        class="min-w-full sm:w-auto bg-green-500 text-white font-semibold px-8 py-3 rounded-full hover:bg-green-600 transition-colors"
+                                    >
+                                        Sign Up
+                                    </button>
+                                    <p>Or</p>
+                                    <button
+                                        type="submit"
+                                        class="min-w-full sm:w-auto bg-[#f4efe9] hover:bg-[#eee6db] font-semibold px-8 py-3 rounded-full transition-colors"
+                                    >
+                                        Sign Up with Google
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="flex justify-center pt-2">
+                                <a href="./login.html" class="underline text-sm"
+                                    >Already have an account? Log in</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <script src="./js/headerScript.js"></script>
+    </body>
+</html>

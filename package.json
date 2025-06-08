@@ -1,0 +1,20 @@
+{
+    "name": "frontend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "pnpm exec tailwindcss -i ./src/css/input.css -o ./dist/css/style.css --watch",
+        "build": "pnpm exec tailwindcss -i ./src/css/input.css -o ./dist/css/style.css --minify"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@tailwindcss/cli": "^4.1.8",
+        "axios": "^1.9.0",
+        "tailwindcss": "^4.1.8"
+    }
+}

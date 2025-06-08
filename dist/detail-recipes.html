@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Recipe Details - CalorieCraft</title>
+
+        <!-- Google Fonts: Inter -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Link to CDN Fontawesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        />
+
+        <!-- Link to File CSS -->
+        <link rel="stylesheet" href="./css/style.css" />
+
+        <!-- Custom Internal CSS -->
+        <style>
+            body {
+                font-family: "Inter", sans-serif;
+            }
+        </style>
+    </head>
+    <body class="bg-white text-gray-800">
+        <!-- Header -->
+        <header class="border-b border-gray-200 bg-white sticky top-0 z-30">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex h-16 items-center justify-between">
+                    <div class="flex items-center gap-6">
+                        <div class="flex items-center gap-4">
+                            <button
+                                id="hamburger-button"
+                                class="md:hidden p-2 -ml-2 rounded-md focus:outline-none"
+                                aria-label="Open main menu"
+                                aria-expanded="false"
+                            >
+                                <span class="sr-only">Open main menu</span>
+                                <div class="space-y-1.5">
+                                    <span
+                                        class="block w-6 h-0.5 bg-gray-700"
+                                    ></span>
+                                    <span
+                                        class="block w-6 h-0.5 bg-gray-700"
+                                    ></span>
+                                    <span
+                                        class="block w-6 h-0.5 bg-gray-700"
+                                    ></span>
+                                </div>
+                            </button>
+                            <!-- Logo -->
+                            <a
+                                href="./index.html"
+                                class="text-xl font-bold text-gray-800"
+                            >
+                                CalorieCraft
+                            </a>
+                        </div>
+
+                        <div
+                            class="hidden md:block h-6 w-px bg-gray-200"
+                            aria-hidden="true"
+                        ></div>
+
+                        <nav
+                            class="hidden md:flex gap-6 text-sm font-medium text-gray-600"
+                        >
+                            <a href="./index.html" class="hover:text-gray-900"
+                                >Calculator</a
+                            >
+                            <a href="./recipes.html" class="hover:text-gray-900"
+                                >Recipes</a
+                            >
+                            <a href="./about.html" class="hover:text-gray-900"
+                                >About Us</a
+                            >
+                        </nav>
+                    </div>
+
+                    <div class="flex items-center">
+                        <button
+                            id="recalculate-button"
+                            class="text-sm font-semibold bg-green-500 text-white rounded-full px-5 py-2 hover:bg-green-600 transition-colors focus:outline-none"
+                        >
+                            Calculate ->
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <div id="mobile-menu-container" class="fixed inset-0 z-40 hidden">
+            <div
+                id="mobile-menu-overlay"
+                class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 ease-in-out"
+            ></div>
+
+            <div
+                id="mobile-menu"
+                class="relative z-50 w-4/5 max-w-xs h-full bg-white shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out"
+            >
+                <div class="flex flex-col h-full">
+                    <div
+                        class="flex items-center justify-between p-4 border-b border-gray-200"
+                    >
+                        <h2 class="text-lg font-bold">Menu</h2>
+                        <button
+                            id="close-menu-button"
+                            class="p-2 -mr-2 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                            aria-label="Close menu"
+                        >
+                            <svg
+                                class="w-6 h-6"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                    <nav class="flex-grow p-4">
+                        <ul class="flex flex-col gap-4 text-gray-700">
+                            <li>
+                                <a
+                                    href="./index.html"
+                                    class="block py-2 px-3 rounded-md hover:bg-gray-100 hover:text-gray-900 font-medium"
+                                    >Calculator</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="./recipes.html"
+                                    class="block py-2 px-3 rounded-md hover:bg-gray-100 hover:text-gray-900 font-medium"
+                                    >Recipes</a
+                                >
+                            </li>
+
+                            <li>
+                                <a
+                                    href="./about.html"
+                                    class="block py-2 px-3 rounded-md hover:bg-gray-100 hover:text-gray-900 font-medium"
+                                    >About Us</a
+                                >
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main
+            class="container mx-auto max-w-4xl px-9 sm:px-6 lg:px-8 py-8 sm:py-12"
+        >
+            <div class="relative mb-6">
+                <img
+                    id="recipe-image"
+                    src=""
+                    alt="Loading recipe image..."
+                    class="w-full h-64 sm:h-80 md:h-96 object-cover rounded-xl bg-gray-200"
+                />
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-xl"
+                ></div>
+                <h1
+                    id="recipe-title"
+                    class="absolute bottom-6 left-6 text-2xl sm:text-3xl md:text-4xl font-bold text-white"
+                ></h1>
+            </div>
+
+            <div
+                id="actions-container"
+                class="flex justify-between items-center mb-10 text-sm font-medium text-gray-600"
+            ></div>
+
+            <!-- Ingredients -->
+            <section id="ingredients-section" class="mb-12">
+                <h2 class="text-2xl font-bold mb-4">Ingredients</h2>
+                <div id="ingredients-list" class="space-y-3"></div>
+            </section>
+
+            <!-- Nutritional Facts -->
+            <section id="nutrition-section" class="mb-12">
+                <h2 class="text-2xl font-bold mb-4">Nutritional facts</h2>
+                <div
+                    id="nutrition-facts"
+                    class="grid grid-cols-2 gap-x-2 gap-y-4 ml-4"
+                ></div>
+            </section>
+
+            <!-- Instructions -->
+            <section id="instructions-section" class="mb-24">
+                <h2 class="text-2xl font-bold mb-6">Instructions</h2>
+                <div id="instructions-container" class="space-y-8"></div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-50 border-t border-gray-200">
+            <div
+                class="container mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 lg:pt-16"
+            >
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+                >
+                    <div class="space-y-4 md:col-span-2 lg:col-span-1">
+                        <a
+                            href="./index.html"
+                            class="text-xl font-bold text-gray-800"
+                        >
+                            CalorieCraft
+                        </a>
+                        <p class="text-sm text-gray-600">
+                            Helping you build a healthier relationship with
+                            food, one recipe at a time.
+                        </p>
+                        <div class="flex space-x-4 pt-2">
+                            <a
+                                href="#"
+                                class="text-gray-500 hover:text-green-600"
+                            >
+                                <span class="sr-only">Facebook</span>
+                                <svg
+                                    class="w-6 h-6"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </a>
+                            <a
+                                href="#"
+                                class="text-gray-500 hover:text-green-600"
+                            >
+                                <span class="sr-only">Instagram</span>
+                                <svg
+                                    class="w-6 h-6"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.013-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.08 2.525c.636-.247 1.363-.416 2.427-.465C9.53 2.013 9.884 2 12.315 2zM12 7a5 5 0 100 10 5 5 0 000-10zm0-2a7 7 0 110 14 7 7 0 010-14zm4.5-1.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </a>
+                            <a
+                                href="#"
+                                class="text-gray-500 hover:text-green-600"
+                            >
+                                <span class="sr-only">X (Twitter)</span>
+                                <svg
+                                    class="w-6 h-6"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                                    />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3
+                            class="text-sm font-semibold text-gray-900 tracking-wider uppercase"
+                        >
+                            Navigation
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li>
+                                <a
+                                    href="./index.html"
+                                    class="text-gray-600 hover:text-green-600 transition-colors"
+                                    >BMI Calculator</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="./recipes.html"
+                                    class="text-gray-600 hover:text-green-600 transition-colors"
+                                    >Recipes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-gray-600 hover:text-green-600 transition-colors"
+                                    >About Us</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-gray-600 hover:text-green-600 transition-colors"
+                                    >Blog</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3
+                            class="text-sm font-semibold text-gray-900 tracking-wider uppercase"
+                        >
+                            COMPANY
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-gray-600 hover:text-green-600 transition-colors"
+                                    >Contact</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-gray-600 hover:text-green-600 transition-colors"
+                                    >Career</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3
+                            class="text-sm font-semibold text-gray-900 tracking-wider uppercase"
+                        >
+                            Legal
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-gray-600 hover:text-green-600 transition-colors"
+                                    >Terms of Service</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-gray-600 hover:text-green-600 transition-colors"
+                                    >Privacy Policy</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-gray-600 hover:text-green-600 transition-colors"
+                                    >Cookie Policy</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div
+                    class="mt-12 pt-8 border-t border-gray-200 text-center text-sm"
+                >
+                    <p class="text-gray-500">
+                        © 2024 CalorieCraft. All Rights Reserved.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <script src="./js/headerScript.js"></script>
+        <script src="./js/detail-recipesScript.js"></script>
+    </body>
+</html>
