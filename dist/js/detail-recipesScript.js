@@ -78,7 +78,7 @@ function showError(message) {
 async function fetchAndDisplayRecipe(recipeId) {
     try {
         const response = await fetch(
-            `http://localhost:3000/api/recipes/${recipeId}`
+            `https://calorie-craft-backend-production.up.railway.app/api/bmi/calculate/api/recipes/${recipeId}`
         );
         if (!response.ok) {
             const errorData = await response.json();
