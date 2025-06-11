@@ -76,11 +76,12 @@ function showError(message) {
 }
 
 async function fetchAndDisplayRecipe(recipeId) {
+    const finalURL = `https://calorie-craft-backend-production.up.railway.app/api/recipes/${recipeId}`;
+
     try {
-        const response = await fetch(
-            `https://calorie-craft-backend-production.up.railway.app/api/bmi/calculate/api/recipes/${recipeId}`
-        );
-        if (!response.ok) {
+        const response = await fetch(finalURL);
+
+        https: if (!response.ok) {
             const errorData = await response.json();
             throw new Error(
                 errorData.message ||
