@@ -17,6 +17,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 async function initializePage() {
     try {
         const bmiData = JSON.parse(localStorage.getItem("bmiData"));
+        console.log(bmiData);
         if (!bmiData || !bmiData.recipes || !bmiData.recipes.length) {
             window.location.href = "./index.html";
             throw new Error(
@@ -28,7 +29,34 @@ async function initializePage() {
         appState.categorizedRecipes = categorizeRecipesOffline(bmiData.recipes);
         appState.isLoading = false;
 
-        document.getElementById("bmi-number").textContent = bmiData.bmi;
+        // BMI Status Display
+
+        const bmiStatus = document.getElementById("bmi-status");
+        bmiStatus.textContent = bmiData.category;
+
+        const statusClasses = [
+            "bg-blue-100",
+            "text-blue-800",
+            "bg-green-100",
+            "text-green-800",
+            "bg-yellow-100",
+            "text-yellow-800",
+            "bg-red-100",
+            "text-red-800",
+        ];
+
+        // 1. HAPUS semua kelas status sebelumnya
+        bmiStatus.classList.remove(...statusClasses);
+
+        if (bmiData.category === "Underweight") {
+            bmiStatus.classList.add("bg-blue-100", "text-blue-800");
+        } else if (bmiData.category === "Normal weight") {
+            bmiStatus.classList.add("bg-green-100", "text-green-800");
+        } else if (bmiData.category === "Overweight") {
+            bmiStatus.classList.add("bg-yellow-100", "text-yellow-800");
+        } else if (bmiData.category === "Obesity") {
+            bmiStatus.classList.add("bg-red-100", "text-red-800");
+        }
 
         setupCategoryFilters();
         setupSearchFilter();
