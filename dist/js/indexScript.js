@@ -50,9 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const height = heightInput.value || undefined;
-        const weight = weightInput.value || undefined;
-        const gender = genderInput.value || undefined;
+        const height = parseInt(heightInput.value) || undefined;
+        const weight = parseInt(weightInput.value) || undefined;
+        const gender = genderInput.value.toLowerCase() || undefined;
 
         const heightErrorField = document.getElementById("height-error");
         const weightErrorField = document.getElementById("weight-error");

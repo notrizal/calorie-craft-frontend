@@ -17,8 +17,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 async function initializePage() {
     try {
         const bmiData = JSON.parse(localStorage.getItem("bmiData"));
-        console.log(bmiData);
-        if (!bmiData || !bmiData.recipes || !bmiData.recipes.length) {
+        if (!bmiData) {
             window.location.href = "./index.html";
             throw new Error(
                 "Recipe data not found. Please calculate your BMI first."
