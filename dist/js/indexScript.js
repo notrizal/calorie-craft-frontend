@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
     const heightInput = document.getElementById("height");
     const weightInput = document.getElementById("weight");
+    const genderInput = document.getElementById("gender");
 
     const loadingOverlay = document.getElementById("loading-overlay");
     const loadingDots = document.getElementById("loading-dots");
@@ -49,13 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const height = heightInput.value;
-        const weight = weightInput.value;
+        const height = heightInput.value || undefined;
+        const weight = weightInput.value || undefined;
+        const gender = genderInput.value || undefined;
 
-        if (!height || !weight) {
-            alert("Tolong isi tinggi dan berat badan.");
-            return;
-        }
+        const heightErrorField = document.getElementById("height-error");
+        const weightErrorField = document.getElementById("weight-error");
+        const genderErrorField = document.getElementById("gender-error");
 
         startLoading();
 
@@ -71,12 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ height, weight }),
+                    body: JSON.stringify({ height, weight, gender }),
                 }
             );
 
             if (!response.ok) {
-                throw new Error("Gagal mendapatkan data dari server");
+                stopLoading();
+                const error = await response.json();
+                throw error;
             }
 
             const data = await response.json();
@@ -84,11 +87,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
             window.location.href = "./recipes.html";
         } catch (err) {
-            console.error("Terjadi kesalahan:", err);
-            alert(
-                "Terjadi kesalahan saat mengambil data. Pastikan server sedang berjalan."
-            );
-            stopLoading();
+            console.log(err);
+
+            heightErrorField.textContent = "";
+            weightErrorField.textContent = "";
+            genderErrorField.textContent = "";
+
+            err.errors.forEach((error) => {
+                if (error.field === "height") {
+                    heightErrorField.textContent = "*" + error.message;
+                }
+                if (error.field === "weight") {
+                    weightErrorField.textContent = "*" + error.message;
+                }
+                if (error.field === "gender") {
+                    genderErrorField.textContent = "*" + error.message;
+                }
+            });
         }
     });
 });

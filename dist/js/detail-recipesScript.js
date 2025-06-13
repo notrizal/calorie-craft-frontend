@@ -192,7 +192,7 @@ function renderActions(recipe) {
             </div>
         </div>
         <div class="relative inline-block">
-            <button id="share-btn" class="flex items-center gap-2 text-gray-600 hover:text-gray-900 focus:outline-none"><i class="fa-solid fa-share"></i><span>Share</span></button><div id="copy-notification" class="absolute left-1/2 -translate-x-1/2 top-[-20px] translate-y-full mb-2 bg-gray-800 text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-lg transition-opacity duration-300 opacity-0 hidden">Link tersalin!</div>
+            <button id="share-btn" class="flex items-center gap-2 text-gray-600 hover:text-gray-900 focus:outline-none"><i class="fa-solid fa-share"></i><span>Share</span></button><div id="copy-notification" class="absolute left-1/2 -translate-x-1/2 top-[-20px] translate-y-full mb-2 bg-gray-800 text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-lg transition-opacity duration-300 opacity-0 hidden">Link copied!</div>
         </div>
 
     `;

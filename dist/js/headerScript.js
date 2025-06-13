@@ -61,7 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Button Untuk Ulang Hitung BMI
 const recalculateButton = document.getElementById("recalculate-button");
-recalculateButton.addEventListener("click", () => {
-    localStorage.removeItem("bmiData");
-    window.location.href = "./index.html";
-});
+if (recalculateButton) {
+    recalculateButton.addEventListener("click", () => {
+        localStorage.removeItem("bmiData");
+        window.location.href = "./index.html";
+    });
+}

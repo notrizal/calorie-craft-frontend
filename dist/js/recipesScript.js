@@ -32,7 +32,7 @@ async function initializePage() {
         // BMI Status Display
 
         const bmiStatus = document.getElementById("bmi-status");
-        bmiStatus.textContent = bmiData.category;
+        bmiStatus.textContent = bmiData.category.split(" ")[0];
 
         const statusClasses = [
             "bg-blue-100",
@@ -45,7 +45,6 @@ async function initializePage() {
             "text-red-800",
         ];
 
-        // 1. HAPUS semua kelas status sebelumnya
         bmiStatus.classList.remove(...statusClasses);
 
         if (bmiData.category === "Underweight") {
@@ -173,9 +172,9 @@ function renderRecipes(recipes) {
 }
 
 /**
- * Fungsi baru untuk membuat pagination yang adaptif dan responsif.
  * @param {number} totalPages - Total jumlah halaman.
  */
+
 function renderPagination(totalPages) {
     const paginationWrapper = document.getElementById("pagination-wrapper");
     paginationWrapper.innerHTML = ""; // Selalu bersihkan
