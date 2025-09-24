@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const response = await fetch(
-                "https://calorie-craft-backend-production.up.railway.app/api/bmi/calculate",
+                "https://calorie-craft-backend-bjqrbfftv-rizal2214s-projects.vercel.app/api/bmi/calculate",
                 {
                     method: "POST",
                     headers: {

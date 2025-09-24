@@ -76,7 +76,7 @@ function showError(message) {
 }
 
 async function fetchAndDisplayRecipe(recipeId) {
-    const finalURL = `https://calorie-craft-backend-production.up.railway.app/api/recipes/${recipeId}`;
+    const finalURL = `https://calorie-craft-backend-bjqrbfftv-rizal2214s-projects.vercel.app/api/recipes/${recipeId}`;
 
     try {
         const response = await fetch(finalURL);
